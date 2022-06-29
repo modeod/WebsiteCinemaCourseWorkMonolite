@@ -1,0 +1,65 @@
+﻿@using WebsiteCinema.Data.Static
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebsiteCinema</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebsiteCinema.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-lg">
+                <a class="navbar-brand" asp-area="" asp-controller="Movies" asp-action="Index">WebsiteCinema</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                    <ul class="navbar-nav justify-content-start">
+                        <li class="nav-item text-nowrap text-center">
+                            <a class="nav-link  text-dark" asp-controller="Movies" asp-action="Index">  <i class="bi bi-film"></i> Movies</a>
+                        </li>
+                        @if(User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
+                        {
+                        <li class="nav-item dropdown show"> 
+                            <a class="btn nav-link dropdown-toggle" id="navbarDropDown" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="bi bi-gear"></i> Managment
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropDown">
+                                <li><a class="dropdown-item" asp-controller="Cinemas" asp-action="Index"><i class="bi bi-camera-reels"></i> Cinemas</a></li>
+                               <li><a class="dropdown-item" asp-controller="Producers" asp-action="Index"><i class="bi bi-headset"></i> Producers</a></li>
+                                <li><a class="dropdown-item" asp-controller="Actors" asp-action="Index"><i class="bi bi-person-square "></i> Actors</a></li>
+                            </ul>
+                        </li>
+                        }
+                        <form class="nav-item d-inline-flex float-start" asp-controller="Movies" asp-action="Filter">
+                            <input name="searchString" type="text" class="form-control" placeholder="Search for movie..."/>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                        </form>
+                    </ul>
+                    <ul class="navbar-nav justify-content-end">
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                        
+                        <partial name="_Identity.cshtml" />
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

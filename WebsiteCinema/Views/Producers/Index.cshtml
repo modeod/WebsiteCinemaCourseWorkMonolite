@@ -1,0 +1,59 @@
+﻿@using WebsiteCinema.Data.Static
+@model IEnumerable<Producer> 
+  
+@{
+    ViewData["Title"] = "List Of Producers";
+}
+
+<div class="row">   
+    <div class="col-md-8 offset-md-2">
+         
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ProfilePicturURL)</th>
+                    <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Bio)</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
+                    {
+                        <th>Actions</th>
+                    }
+                    else
+                    {
+                        <th></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img class="rounded-circle" src="@item.ProfilePicturURL" alt="@item.FullName" style="max-width: 150px">
+                        </td>
+                        <td class="align-middle">@Html.DisplayFor(m => item.FullName)</td>
+                        <td class="align-middle">@Html.DisplayFor(m => item.Bio)</td>
+                        @if(User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
+                        {
+                            <td class="align-middle">
+                                <a class="btn btn-outline-info" style="margin: 1em" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Details </a>
+                                <a class="btn btn-outline-primary" style="margin: 1em" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i> Edit </a>
+                                <a class="btn btn-outline-danger" style="margin: 1em" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i> Delete </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="align-middle">
+                                <a class="btn btn-outline-info" style="margin: 1em" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Details </a>
+                            </td>
+                        }
+                    </tr>
+                   
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("_CreateItem", "Producers");
