@@ -102,9 +102,10 @@ namespace WebsiteCinema.Controllers
             return RedirectToAction("Index", "Movies");
         }
 
-        public IActionResult AccessDenied(string ReturnUrl)
+        [HttpGet("AccessDenied")]
+        public IActionResult AccessDenied([FromQuery] string ReturnUrl)
         {
-            return View(ReturnUrl);
+            return View("Views/Account/Login.cshtml");
         }
     }
 }

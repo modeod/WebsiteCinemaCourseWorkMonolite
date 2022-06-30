@@ -24,8 +24,9 @@ namespace WebsiteCinema.Controllers
             _ordersService = ordersService;
         }
 
-        [Route("")]
-        public async Task<IActionResult> OrdresList()
+        [Route("/Orders")]
+        [Route("OrdersList")]
+        public async Task<IActionResult> OrdersList()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string userRole = User.FindFirstValue(ClaimTypes.Role);
