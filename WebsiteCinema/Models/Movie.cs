@@ -15,6 +15,8 @@ namespace WebsiteCinema.Models
 
         [Display(Name = "Description")]
         public string Description { get; set; }
+
+        [Range(0, Int32.MaxValue, ErrorMessage = "Value should be greater than or equal to 0")]
         public double Price { get; set; }
         [Display(Name = "Poster")]
         public string? ImageURL { get; set; }

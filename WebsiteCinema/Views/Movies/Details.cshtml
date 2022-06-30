@@ -31,6 +31,7 @@
                         <p class="card-text"><b>Category: </b> @Model.MovieCategory</p>
                         <p class="card-text"><b>Start Date: </b> @Model.StartDate</p>
                         <p class="card-text"><b>End Date: </b> @Model.EndDate</p>
+                        <p class="card-text"><b>Price: </b> @Model.Price $</p>
                         <p class="card-text">
                             <b>Status:</b>
                                 @if(DateTime.Now >= Model.StartDate && DateTime.Now <= Model.EndDate)
